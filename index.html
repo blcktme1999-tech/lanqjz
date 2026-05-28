@@ -1,761 +1,915 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="zh-TW">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>照護好時光 | 長照看護招募網站</title>
-  <meta name="description" content="照護好時光為長照中心招募台灣看護人才，介紹公司背景、工作內容、培訓支持與應徵方式，所有諮詢與應徵皆可透過 Line 聯繫。">
+  <title>照顧有方法 — 長照3.0專業課程平台</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    :root {
-      --bg: #f7f2ea;
-      --surface: rgba(255, 251, 246, 0.92);
-      --surface-strong: #fffdf9;
-      --text: #1f2a2d;
-      --muted: #617074;
-      --line: #d9cec1;
-      --line-strong: #bfae9a;
-      --accent: #f3a93b;
-      --accent-deep: #ca7a17;
-      --accent-soft: #fff2dc;
-      --support: #3f7c85;
-      --shadow: 0 24px 60px rgba(45, 37, 28, 0.12);
-      --radius: 24px;
-      --max: 1240px;
-      --font: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
-      --line-url: "https://line.me/ti/p/6y_7Lqfj2r";
-    }
-
-    * { box-sizing: border-box; }
+    /* ===== RESET & BASE ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-
     body {
-      margin: 0;
-      font-family: var(--font);
-      color: var(--text);
-      background:
-        radial-gradient(circle at top left, rgba(243, 169, 59, 0.24), transparent 28%),
-        radial-gradient(circle at 85% 12%, rgba(63, 124, 133, 0.16), transparent 20%),
-        linear-gradient(180deg, #fffaf3 0%, var(--bg) 100%);
-      line-height: 1.6;
+      font-family: 'Noto Sans TC', sans-serif;
+      font-size: 15px;
+      color: #333;
+      background: #f8f9fa;
     }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
 
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      background-image: linear-gradient(rgba(95, 114, 116, 0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(95, 114, 116, 0.06) 1px, transparent 1px);
-      background-size: 22px 22px;
-      mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.22), transparent 78%);
-    }
-
-    a { color: inherit; text-decoration: none; }
-    h1, h2, h3, p { margin: 0; }
-
-    .page-shell {
-      width: min(calc(100% - 28px), var(--max));
-      margin: 18px auto 36px;
-      border: 1px solid var(--line);
-      border-radius: 30px;
-      overflow: hidden;
-      background: rgba(255, 253, 249, 0.76);
-      backdrop-filter: blur(14px);
-      box-shadow: var(--shadow);
-    }
-
-    .site-nav {
+    /* ===== HEADER ===== */
+    #header {
       position: sticky;
       top: 0;
-      z-index: 20;
+      z-index: 1000;
+      background: #fff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+    }
+    .header-body { border-top: 4px solid #2a6baf; }
+    .header-container {
+      max-width: 1170px;
+      margin: 0 auto;
+      padding: 0 20px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 16px;
-      padding: 16px 24px;
-      border-bottom: 1px solid var(--line);
-      background: rgba(255, 250, 243, 0.92);
-      backdrop-filter: blur(16px);
+      height: 72px;
     }
-
-    .brand {
+    .header-logo {
       display: flex;
       align-items: center;
       gap: 12px;
-      font-weight: 800;
-      letter-spacing: 0.03em;
+    }
+    .logo-icon {
+      width: 52px; height: 52px;
+      background: linear-gradient(135deg, #2a6baf, #1a9e6e);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-size: 24px;
+    }
+    .logo-text { line-height: 1.2; }
+    .logo-text .main { font-size: 22px; font-weight: 700; color: #2a6baf; }
+    .logo-text .sub  { font-size: 11px; color: #888; }
+
+    /* search */
+    .header-search { display: flex; align-items: center; }
+    .header-search input {
+      border: 1px solid #ccc; border-right: none;
+      padding: 7px 14px; border-radius: 4px 0 0 4px;
+      font-size: 14px; width: 220px; outline: none;
+    }
+    .header-search button {
+      padding: 7px 14px;
+      background: #2a6baf; color: #fff; border: none;
+      border-radius: 0 4px 4px 0; cursor: pointer;
     }
 
-    .brand-mark {
-      width: 42px;
-      height: 42px;
-      border-radius: 15px;
-      display: grid;
-      place-items: center;
-      background: linear-gradient(135deg, var(--accent-deep), var(--accent));
+    /* nav */
+    .header-nav { display: flex; align-items: center; gap: 4px; }
+    .header-nav a {
+      padding: 8px 14px; border-radius: 4px;
+      font-size: 14px; font-weight: 500; color: #444;
+      transition: background .2s, color .2s;
+    }
+    .header-nav a:hover, .header-nav a.active { background: #2a6baf; color: #fff; }
+    .header-nav .btn-line {
+      background: #06C755; color: #fff;
+      border-radius: 20px; padding: 8px 18px;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .header-nav .btn-line:hover { background: #05a847; }
+
+    /* mobile toggle */
+    .nav-toggle { display: none; background: none; border: none; font-size: 22px; cursor: pointer; color: #2a6baf; }
+
+    /* ===== HERO BANNER ===== */
+    .hero-banner {
+      background: linear-gradient(135deg, #1a3d6e 0%, #2a6baf 50%, #1a9e6e 100%);
       color: #fff;
-      font-size: 18px;
-      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.28);
+      text-align: center;
+      padding: 70px 20px 60px;
+      position: relative;
+      overflow: hidden;
     }
-
-    .nav-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 14px;
-      color: var(--muted);
-      font-size: 14px;
+    .hero-banner::before {
+      content: '';
+      position: absolute; inset: 0;
+      pointer-events: none;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
     }
-
-    .nav-links a:hover { color: var(--text); }
-
-    .cta-chip,
-    .cta-button,
-    .cta-out {
-      display: in-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      border-radius: 999px;
-      font-weight: 700;
-      transition: transform 0.28s cubic-bezier(.4,0,.2,1), border-color 0.28s cubic-bezier(.4,0,.2,1), background 0.28s cubic-bezier(.4,0,.2,1);
+    .hero-banner .badge-tag {
+      display: inline-block;
+      background: rgba(255,255,255,0.2);
+      border: 1px solid rgba(255,255,255,0.4);
+      padding: 4px 16px; border-radius: 20px;
+      font-size: 13px; margin-bottom: 16px;
+      letter-spacing: 1px;
     }
-
-    .cta-chip {
-      padding: 12px 18px;
-      border: 1px solid rgba(202, 122, 23, 0.16);
-      background: rgba(255, 255, 255, 0.8);
-      font-size: 14px;
+    .hero-banner h1 { font-size: 40px; font-weight: 700; margin-bottom: 12px; text-shadow: 0 2px 8px rgba(0,0,0,0.3); }
+    .hero-banner p  { font-size: 18px; opacity: .9; margin-bottom: 30px; }
+    .hero-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .hero-btns a {
+      padding: 13px 30px; border-radius: 30px;
+      font-size: 15px; font-weight: 600;
+      display: flex; align-items: center; gap: 8px;
+      transition: transform .2s, box-shadow .2s;
     }
+    .hero-btns a:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.25); }
+    .btn-primary-hero { background: #fff; color: #2a6baf; }
+    .btn-line-hero     { background: #06C755; color: #fff; }
 
-    .cta-button {
-      padding: 14px 22px;
-      background: var(--accent);
-      color: #261302;
-      box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.3);
+    /* stats strip */
+    .stats-strip {
+      background: #fff;
+      border-bottom: 3px solid #e8eef5;
+      padding: 0;
     }
-
-    .cta-out {
-      padding: 14px 22px;
-      border: 1px solid var(---strong);
-      background: rgba(255, 255, 255, 0.72);
-      color: var(--text);
+    .stats-inner {
+      max-width: 1170px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(4, 1fr);
     }
-
-    .cta-chip:hover,
-    .cta-button:hover,
-    .cta-out:hover,
-    .feature-card:hover,
-    .story-card:hover,
-    .faq-item:hover,
-    .value-stat:hover,
-    .time-card:hover {
-      transform: translateY(-2px);
+    .stat-item {
+      text-align: center;
+      padding: 22px 10px;
+      border-right: 1px solid #e8eef5;
     }
+    .stat-item:last-child { border-right: none; }
+    .stat-item .num { font-size: 30px; font-weight: 700; color: #2a6baf; }
+    .stat-item .lbl { font-size: 13px; color: #888; margin-top: 4px; }
 
-    .section { border-bottom: 1px solid var(--); }
+    /* ===== CONTAINER ===== */
+    .container { max-width: 1170px; margin: 0 auto; padding: 0 20px; }
 
-    .section-grid {
-      display: grid;
-      grid-template-columns: repeat(12, minmax(0, 1fr));
-      width: 100%;
-    }
-
-    .cell-left,
-    .cell-right,
-    .cell-full {
-      padding: 30px 28px;
+    /* ===== ANNOUNCEMENT TABS ===== */
+    .section { padding: 40px 0; }
+    .section-title {
+      text-align: center;
+      font-size: 24px; font-weight: 700;
+      color: #2a6baf;
+      margin-bottom: 28px;
       position: relative;
     }
-
-    .cell-left { border-left: 1px solid var(--); border-right: 1px solid var(--); }
-    .cell-right { border-right: 1px solid var(--); }
-    .cell-full { border-left: 1px solid var(--); border-right: 1px solid var(--); }
-
-    .hero-copy {
-      grid-column: span 7;
-      padding-top: 56px;
-      padding-bottom: 56px;
-    }
-
-    .hero-panel {
-      grid-column: span 5;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      background:
-        ar-gradient(180deg, rgba(63, 124, 133, 0.05), rgba(243, 169, 59, 0.1)),
-        var(--surface);
-    }
-
-    .eyebrow {
-      display: in-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 8px 12px;
-      border-radius: 999px;
-      border: 1px solid var(--);
-      font-size: 12px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--muted);
-      background: rgba(255, 255, 255, 0.82);
-    }
-
-    h1 {
-      margin-top: 24px;
-      font-size: clamp(2.8rem, 6vw, 5.2rem);
-      line-height: 0.94;
-      letter-spacing: -0.05em;
-    }
-
-    .hero-copy p {
-      margin-top: 22px;
-      max-width: 620px;
-      font-size: 18px;
-      color: var(--muted);
-    }
-
-    .action-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 14px;
-      margin-top: 28px;
-    }
-
-    .hero-micro {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 20px;
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    .hero-micro span {
-      padding: 8px 12px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.8);
-      border: 1px solid rgba(191, 174, 154, 0.52);
-    }
-
-    .hero-visual {
-      display: grid;
-      gap: 16px;
-    }
-
-    .metric-board {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 14px;
-      margin-top: 26px;
-    }
-
-    .value-stat {
-      padding: 20px;
-      border-radius: 20px;
-      border: 1px solid rgba(191, 174, 154, 0.6);
-      background: rgba(255, 255, 255, 0.86);
-      transition: transform 0.28s cubic-bezier(.4,0,.2,1), border-color 0.28s cubic-bezier(.4,0,.2,1);
-    }
-
-    .value-stat strong {
+    .section-title::after {
+      content: '';
       display: block;
-      font-size: 34px;
-      line-height: 1;
-      margin-bottom: 10px;
+      width: 60px; height: 3px;
+      background: #2a6baf;
+      margin: 10px auto 0;
+      border-radius: 2px;
     }
 
-    .value-stat span {
-      color: var(--muted);
+    .tab-wrap {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      overflow: hidden;
+    }
+    .tab-nav {
+      display: flex;
+      background: #e8eef5;
+    }
+    .tab-nav button {
+      flex: 1; padding: 14px 10px;
+      border: none; background: transparent;
+      cursor: pointer; font-size: 15px;
+      font-family: inherit; color: #555;
+      border-top: 4px solid transparent;
+      transition: all .2s;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+    }
+    .tab-nav button:hover { background: #d5dde8; }
+    .tab-nav button.active {
+      background: #fff; color: #2a6baf;
+      border-top-color: #2a6baf; font-weight: 700;
+    }
+    .tab-content { display: none; padding: 24px 28px; }
+    .tab-content.active { display: block; }
+
+    .news-list { margin-bottom: 16px; }
+    .news-list li {
+      padding: 10px 0;
+      border-bottom: 1px dashed #ddd;
+      display: flex; gap: 12px; align-items: flex-start;
       font-size: 14px;
     }
-
-    .science-note {
-      margin-top: 18px;
-      padding: 18px 18px 18px 20px;
-      border-left: 4px solid var(--support);
-      background: rgba(230, 245, 247, 0.84);
-      border-radius: 18px;
+    .news-list li:last-child { border-bottom: none; }
+    .news-list .date { color: #888; white-space: nowrap; flex-shrink: 0; }
+    .news-list .pin  { color: #e74c3c; flex-shrink: 0; }
+    .news-list a:hover { color: #2a6baf; text-decoration: underline; }
+    .btn-more {
+      display: block; text-align: center;
+      padding: 10px; background: #2a6baf; color: #fff;
+      border-radius: 6px; font-size: 14px;
+      transition: background .2s;
     }
+    .btn-more:hover { background: #1a5090; }
 
-    .section-intro {
-      grid-column: span 4;
-      background: rgba(255, 255, 255, 0.62);
-    }
-
-    .section-body { grid-column: span 8; }
-
-    .kicker {
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--accent-deep);
-      font-weight: 700;
-    }
-
-    .section-intro h2 {
-      margin-top: 16px;
-      font-size: clamp(2rem, 4vw, 3.1rem);
-      line-height: 0.98;
-      letter-spacing: -0.05em;
-    }
-
-    .section-intro p {
-      margin-top: 18px;
-      color: var(--muted);
-      font-size: 16px;
-    }
-
-    .feature-grid,
-    .story-grid,
-    .faq-grid,
-    .timeline-grid {
-      display: grid;
-      gap: 16px;
-    }
-
-    .feature-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .story-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-    .faq-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .timeline-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-
-    .feature-card,
-    .story-card,
-    .faq-item,
-    .timeline-card {
-      padding: 22px;
-      border-radius: 22px;
-      border: 1px solid rgba(191, 174, 154, 0.58);
-      background: var(--surface-strong);
-      transition: transform 0.28s cubic-bezier(.4,0,.2,1), border-color 0.28s cubic-bezier(.4,0,.2,1);
-    }
-
-    .feature-card:hover,
-    .story-card:hover,
-    .faq-item:hover,
-    .timeline-card:hover,
-    .value-stat:hover {
-      border-color: var(--support);
-    }
-
-    .feature-icon {
-      width: 42px;
-      height: 42px;
-      border-radius: 14px;
-      display: grid;
-      place-items: center;
-      margin-bottom: 18px;
-      background: var(--accent-soft);
-      color: var(--accent-deep);
-      font-weight: 800;
-    }
-
-    .feature-card h3,
-    .story-card h3,
-    .faq-item h3,
-    .timeline-card h3 {
-      font-size: 20px;
-      line-height: 1.15;
-      margin-bottom: 10px;
-    }
-
-    .feature-card p,
-    .story-card p,
-    .faq-item p,
-    .timeline-card p {
-      color: var(--muted);
-      font-size: 15px;
-    }
-
-    .story-meta,
-    .timeline-meta {
-      margin-top: 16px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      color: var(--muted);
-      font-size: 13px;
-    }
-
-    .story-meta span,
-    .timeline-meta span {
-      padding: 7px 10px;
-      border-radius: 999px;
-      background: rgba(255, 242, 220, 0.84);
-      border: 1px solid rgba(191, 174, 154, 0.42);
-    }
-
-    .role-sheet {
-      display: grid;
-      grid-template-columns: 1.15fr 0.85fr;
-      gap: 18px;
-      align-items: stretch;
-    }
-
-    .role-panel,
-    .support-panel {
-      padding: 24px;
-      border-radius: 24px;
-      border: 1px solid rgba(191, 174, 154, 0.56);
-      background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(252, 247, 240, 0.94));
-    }
-
-    .duty-list {
-      margin-top: 18px;
-      display: grid;
-      gap: 12px;
-    }
-
-    .duty-item {
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 14px 16px;
-      border-radius: 16px;
-      background: rgba(255, 255, 255, 0.92);
-      border: 1px solid rgba(217, 206, 193, 0.92);
-      font-size: 15px;
-    }
-
-    .duty-item span:last-child {
-      color: var(--support);
-      font-weight: 700;
+    /* ===== COURSE CATEGORY TABS ===== */
+    .category-bar {
+      background: #d5dadc;
+      border-radius: 8px;
+      padding: 10px 16px;
+      margin-bottom: 28px;
+      overflow-x: auto;
       white-space: nowrap;
     }
+    .category-bar::-webkit-scrollbar { height: 4px; }
+    .category-bar::-webkit-scrollbar-thumb { background: #aaa; border-radius: 2px; }
+    .cat-btn {
+      display: inline-block;
+      padding: 8px 18px;
+      border: none; background: transparent;
+      cursor: pointer; font-size: 14px;
+      font-family: inherit; color: #494949;
+      border-top: 5px solid transparent;
+      border-radius: 2px;
+      transition: all .2s;
+    }
+    .cat-btn:hover, .cat-btn.active {
+      font-weight: 700;
+      border-top-color: #2a6baf;
+      background: #fff;
+    }
 
-    .support-stack {
-      margin-top: 18px;
+    /* course grid */
+    .course-grid {
       display: grid;
-      gap: 14px;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 24px;
     }
-
-    .support-box {
-      padding: 16px 18px;
-      border-radius: 18px;
-      background: rgba(230, 245, 247, 0.8);
-      border: 1px solid rgba(157, 198, 204, 0.6);
+    .course-card {
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+      transition: transform .2s, box-shadow .2s;
+      display: flex; flex-direction: column;
     }
+    .course-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.14); }
+    .course-thumb {
+      width: 100%; height: 180px;
+      object-fit: cover;
+      background: linear-gradient(135deg, #2a6baf22, #1a9e6e22);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 60px; color: #2a6baf;
+    }
+    .course-thumb img { width: 100%; height: 100%; object-fit: cover; }
+    .course-body { padding: 16px 18px; flex: 1; display: flex; flex-direction: column; }
+    .course-cat  { font-size: 11px; color: #2a6baf; font-weight: 600; margin-bottom: 6px; letter-spacing: .5px; }
+    .course-title {
+      font-size: 15px; font-weight: 700; color: #222;
+      margin-bottom: 10px; line-height: 1.5;
+      display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+    }
+    .course-meta { display: flex; gap: 14px; font-size: 12px; color: #888; margin-top: auto; }
+    .course-meta span { display: flex; align-items: center; gap: 4px; }
+    .course-footer {
+      padding: 12px 18px;
+      border-top: 1px solid #f0f0f0;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .badge-free {
+      background: #e8f5e9; color: #2e7d32;
+      padding: 4px 10px; border-radius: 12px; font-size: 12px; font-weight: 600;
+    }
+    .btn-enroll {
+      background: #2a6baf; color: #fff;
+      padding: 7px 18px; border-radius: 20px;
+      font-size: 13px; font-weight: 600;
+      transition: background .2s;
+    }
+    .btn-enroll:hover { background: #1a5090; }
 
-    .final-cta {
-      grid-column: span 12;
-      background: linear-gradient(120deg, rgba(255,255,255,0.84), rgba(255, 242, 220, 0.92));
+    /* ===== LINE CTA SECTION ===== */
+    .line-cta {
+      background: linear-gradient(135deg, #06C755, #05a847);
+      color: #fff;
       text-align: center;
-      padding-top: 54px;
-      padding-bottom: 54px;
+      padding: 56px 20px;
+      margin: 40px 0 0;
+    }
+    .line-cta h2 { font-size: 28px; font-weight: 700; margin-bottom: 12px; }
+    .line-cta p  { font-size: 16px; opacity: .9; margin-bottom: 28px; }
+    .btn-line-big {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: #fff; color: #06C755;
+      padding: 14px 36px; border-radius: 30px;
+      font-size: 17px; font-weight: 700;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+      transition: transform .2s, box-shadow .2s;
+    }
+    .btn-line-big:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.25); }
+    .btn-line-big i { font-size: 22px; }
+
+    /* ===== FEATURES ===== */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 24px;
+    }
+    .feature-card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 28px 22px;
+      text-align: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.07);
+      transition: transform .2s;
+    }
+    .feature-card:hover { transform: translateY(-4px); }
+    .feature-icon {
+      width: 64px; height: 64px;
+      background: linear-gradient(135deg, #2a6baf22, #1a9e6e22);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 28px; color: #2a6baf;
+      margin: 0 auto 16px;
+    }
+    .feature-card h4 { font-size: 16px; font-weight: 700; margin-bottom: 8px; color: #222; }
+    .feature-card p  { font-size: 13px; color: #777; line-height: 1.6; }
+
+    /* ===== FOOTER ===== */
+    #footer {
+      background: #1a2e4a;
+      color: #ccc;
+      padding: 40px 20px 24px;
+    }
+    .footer-inner {
+      max-width: 1170px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr 1fr;
+      gap: 32px; margin-bottom: 28px;
+    }
+    .footer-col h4 { color: #fff; font-size: 15px; margin-bottom: 14px; font-weight: 600; }
+    .footer-col p, .footer-col li { font-size: 13px; line-height: 2; color: #aaa; }
+    .footer-col a:hover { color: #fff; }
+    .footer-col .social-links { display: flex; gap: 12px; margin-top: 10px; }
+    .footer-col .social-links a {
+      width: 36px; height: 36px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-size: 16px;
+      transition: background .2s;
+    }
+    .footer-col .social-links a:hover { background: #2a6baf; }
+    .footer-bottom {
+      max-width: 1170px; margin: 0 auto;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 20px;
+      display: flex; align-items: center; justify-content: space-between;
+      font-size: 12px; color: #888;
     }
 
-    .final-cta h2 {
-      font-size: clamp(2.4rem, 5vw, 4rem);
-      line-height: 0.95;
-      letter-spacing: -0.05em;
-      max-width: 780px;
-      margin: 0 auto;
+    /* ===== MODAL ===== */
+    .modal-overlay {
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,0.55); z-index: 2000;
+      align-items: center; justify-content: center;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal-box {
+      background: #fff; border-radius: 16px;
+      width: 90%; max-width: 540px;
+      padding: 32px; position: relative;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+    .modal-close {
+      position: absolute; top: 14px; right: 18px;
+      background: none; border: none; font-size: 22px;
+      cursor: pointer; color: #888;
+    }
+    .modal-box h3 { font-size: 20px; color: #2a6baf; margin-bottom: 12px; }
+    .modal-box p  { font-size: 14px; color: #555; line-height: 1.7; margin-bottom: 16px; }
+    .modal-box .btn-line-modal {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: #06C755; color: #fff;
+      padding: 11px 28px; border-radius: 24px;
+      font-size: 15px; font-weight: 700;
     }
 
-    .final-cta p {
-      max-width: 660px;
-      margin: 18px auto 0;
-      color: var(--muted);
-      font-size: 17px;
-    }
-
-    footer {
-      padding: 22px 28px;
-      display: flex;
-      justify-content: space-between;
-      gap: 16px;
-      flex-wrap: wrap;
-      color: var(--muted);
-      font-size: 14px;
-      background: rgba(255, 255, 255, 0.72);
-    }
-
-    @media (max-width: 1080px) {
-      .hero-copy,
-      .hero-panel,
-      .section-intro,
-      .section-body,
-      .final-cta { grid-column: span 12; }
-
-      .section-intro { border-right: 1px solid var(--line); }
-      .feature-grid,
-      .faq-grid,
-      .role-sheet { grid-template-columns: 1fr; }
-      .story-grid,
-      .timeline-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    }
-
-    @media (max-width: 720px) {
-      .page-shell {
-        width: min(calc(100% - 16px), var(--max));
-        margin: 8px auto 16px;
-        border-radius: 22px;
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .header-search { display: none; }
+      .header-nav .desktop-nav { display: none; }
+      .nav-toggle { display: block; }
+      .mobile-nav {
+        display: none; flex-direction: column;
+        background: #fff; padding: 12px 20px;
+        border-top: 1px solid #eee;
       }
-
-      .site-nav { padding: 14px 16px; }
-      .cell-left, .cell-right, .cell-full { padding: 22px 16px; }
-      .metric-board,
-      .feature-grid,
-      .story-grid,
-      .faq-grid,
-      .timeline-grid { grid-template-columns: 1fr; }
-      .nav-links { display: none; }
-      h1 { font-size: 2.7rem; }
-      .final-cta h2 { font-size: 2.3rem; }
-      footer { padding: 18px 16px 22px; }
+      .mobile-nav.open { display: flex; }
+      .mobile-nav a {
+        padding: 10px 0; border-bottom: 1px solid #f0f0f0;
+        font-size: 15px; color: #333;
+      }
+      .hero-banner h1 { font-size: 26px; }
+      .stats-inner { grid-template-columns: repeat(2, 1fr); }
+      .footer-inner { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
     }
   </style>
 </head>
 <body>
-  <div class="page-shell">
-    <nav class="site-nav" aria-label="主選單">
-      <a class="brand" href="https://line.me/ti/p/6y_7Lqfj2r" target="_blank" rel="noreferrer">
-        <span class="brand-mark">護</span>
-        <span>照護好時光</span>
+
+<!-- ===== HEADER ===== -->
+<div id="header">
+  <div class="header-body">
+    <div class="header-container">
+      <!-- Logo -->
+      <a href="#home" class="header-logo">
+        <div class="logo-icon"><i class="fa-solid fa-heart-pulse"></i></div>
+        <div class="logo-text">
+          <div class="main">照顧有方法</div>
+          <div class="sub">長照3.0專業課程平台</div>
+        </div>
       </a>
-      <div class="nav-links">
-        <a href="https://line.me/ti/p/6y_7Lqfj2r" target="_blank" rel="noreferrer">公司介紹</a>
-        <a href="https://line.me/ti/p/6y_7Lqfj2r" target="_blank" rel="noreferrer">工作內容</a>
-        <a href="https://line.me/ti/p/6y_7Lqfj2r" target="_blank" rel="noreferrer">應徵流程</a>
-        <a href="https://line.me/ti/p/6y_7Lqfj2r" target="_blank" rel="noreferrer">Line 諮詢</a>
+
+      <!-- Search (desktop) -->
+      <div class="header-search">
+        <input type="text" id="searchInput" placeholder="課程搜尋">
+        <button onclick="doSearch()"><i class="fa fa-search"></i></button>
       </div>
-      <a class="cta-chip" href="https://line.me/ti/p/6y_7Lqfj2r" target="_blank" rel="noreferrer">立即加入 Line</a>
+
+      <!-- Nav (desktop) -->
+      <nav class="header-nav desktop-nav">
+        <a href="#home" class="active">首頁</a>
+        <a href="#news">最新消息</a>
+        <a href="#courses">課程列表</a>
+        <a href="#features">平台特色</a>
+        <a href="#faq">常見問題</a>
+        <a href="https://line.me/ti/p/Pf6y3gLqJz" target="_blank" class="btn-line">
+          <i class="fa-brands fa-line"></i> 加入LINE
+        </a>
+      </nav>
+
+      <!-- Mobile toggle -->
+      <button class="nav-toggle" onclick="toggleMobileNav()"><i class="fa fa-bars"></i></button>
+    </div>
+    <!-- Mobile Nav -->
+    <nav class="mobile-nav" id="mobileNav">
+      <a href="#home"     onclick="toggleMobileNav()">🏠 首頁</a>
+      <a href="#news"     onclick="toggleMobileNav()">📢 最新消息</a>
+      <a href="#courses"  onclick="toggleMobileNav()">📚 課程列表</a>
+      <a href="#features" onclick="toggleMobileNav()">⭐ 平台特色</a>
+      <a href="#faq"      onclick="toggleMobileNav()">❓ 常見問題</a>
+      <a href="https://line.me/ti/p/Pf6y3gLqJz" target="_blank" style="color:#06C755;font-weight:700;">
+        <i class="fa-brands fa-line"></i> 加入LINE諮詢
+      </a>
     </nav>
-
-    <main>
-      <section class="section" aria-labelledby="hero-title">
-        <div class="section-grid">
-          <div class="cell-left hero-copy">
-            <span class="eyebrow">Long-Term Care Recruitment</span>
-            <h1 id="hero-title">加入照護好時光，把溫柔變成專業。</h1>
-            <p>照護好時光是長照中心招募平台，專注媒合有責任感、願意投入照顧工作的看護人才。我們提供清楚職務說明、實務支援與穩定溝通窗口，協助你在台灣長照現場安心上工。</p>
-            <div class="action-row">
-              <a class="cta-button" href="https://line.me/ti/p/6y_7Lqfj2r" target="_blank" rel="noreferrer">立即 Line 應徵</a>
-              <a class="cta-outline" href="https://line.me/ti/p/6y_7Lqfj2r" target="_blank" rel="noreferrer">先了解工作內容</a>
-            </div>
-            <div class="hero-micro" aria-label="核心優勢">
-              <span>長照中心背景清楚</span>
-              <span>台灣看護工作說明</span>
-              <span>Line 即時諮詢</span>
-              <span>應徵流程簡單明確</span>
-            </div>
-          </div>
-          <div class="cell-right hero-panel">
-            <div class="hero-visual">
-              <div class="metric-board">
-                <article class="value-stat">
-                  <strong>1 對 1</strong>
-                  <span>應徵問題可直接透過 Line 詢問，快速了解職缺與安排。</span>
-                </article>
-                <article class="value-stat">
-                  <strong>長照</strong>
-                  <span>聚焦居家與照顧現場需求，讓工作內容更清楚、不模糊。</span>
-                </article>
-                <article class="value-stat">
-                  <strong>在台</strong>
-                  <span>以台灣照護工作情境為核心，強調實際執行的照顧任務。</span>
-                </article>
-                <article class="value-stat">
-                  <strong>穩定</strong>
-                  <span>從認識公司到應徵聯繫，都有一致窗口協助你完成流程。</span>
-                </article>
-              </div>
-              <div class="science-note">
-                <strong>我們重視的不只是媒合，更是照顧品質</strong>
-                <p>照護好時光相信，好的看護來自清楚的工作期待、互相尊重的合作方式，以及對長者與家庭真正有幫助的照顧能力。</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="section" aria-labelledby="about-title">
-        <div class="section-grid">
-          <div class="cell-left section-intro">
-            <span class="kicker">About Us</span>
-            <h2 id="about-title">我們是以陪伴、專業、穩定為核心的長照中心。</h2>
-            <p>照護好時光專注長期照顧服務，希望建立一個讓家庭放心、讓照護者安心投入的合作環境。網站以招募看護為主，讓有心投入照護工作的夥伴，能快速了解我們的理念與需求。</p>
-          </div>
-          <div class="cell-right section-body">
-            <div class="feature-grid">
-              <article class="feature-card">
-                <div class="feature-icon">01</div>
-                <h3>清楚的照護理念</h3>
-                <p>我們重視長者的尊嚴、家庭的信任，以及照護者在現場的專業判斷，不用模糊話術招募，而是把期待說清楚。</p>
-              </article>
-              <article class="feature-card">
-                <div class="feature-icon">02</div>
-                <h3>以台灣長照需求出發</h3>
-                <p>內容聚焦台灣常見的照護情境，包括日常陪伴、生活協助、基本清潔與回報溝通，讓求職者更容易理解工作輪廓。</p>
-              </article>
-              <article class="feature-card">
-                <div class="feature-icon">03</div>
-                <h3>溝通窗口單純</h3>
-                <p>所有諮詢與應徵都集中到 Line，方便快速回覆，也讓看護夥伴不用在多個平台之間反覆切換。</p>
-              </article>
-              <article class="feature-card">
-                <div class="feature-icon">04</div>
-                <h3>重視合作穩定性</h3>
-                <p>我們期待招募到願意長期投入、對照顧工作有耐心與責任感的人，和團隊一起建立值得信賴的照護服務。</p>
-              </article>
-            </div>
-            <div class="action-row">
-              <a class="cta-button" href="https://line.me/ti/p/6y_7Lqfj2r" target="_blank" rel="noreferrer">Line 詢問職缺</a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="section" aria-labelledby="duties-title">
-        <div class="section-grid">
-          <div class="cell-left section-intro">
-            <span class="kicker">Taiwan Caregiver Duties</span>
-            <h2 id="duties-title">在台灣，看護通常需要做哪些事情？</h2>
-            <p>這一區直接說明台灣看護常見工作內容，幫助應徵者先了解日常任務，也讓真正適合照護工作的夥伴更有方向地加入。</p>
-          </div>
-          <div class="cell-right section-body">
-            <div class="role-sheet">
-              <div class="role-panel">
-                <h3>常見工作內容</h3>
-                <p>實際工作會依個案身體狀況與家庭需求調整，但大多圍繞生活照顧、陪伴支持與日常觀察三大面向。</p>
-                <div class="duty-list">
-                  <div class="duty-item"><span>協助起居與移動</span><span>日常照顧</span></div>
-                  <div class="duty-item"><span>協助用餐、備餐與服藥提醒</span><span>生活支持</span></div>
-                  <div class="duty-item"><span>陪同散步、聊天與情緒陪伴</span><span>陪伴關懷</span></div>
-                  <div class="duty-item"><span>協助個人清潔與環境整理</span><span>基本整潔</span></div>
-                  <div class="duty-item"><span>觀察身體狀況並回報家屬或單位</span><span>溝通回報</span></div>
-                </div>
-              </div>
-              <div class="support-panel">
-                <h3>適合這份工作的人</h3>
-                <div class="support-stack">
-                  <div class="support-box">
-                    <strong>有耐心</strong>
-                    <p>願意花時間陪伴長者，面對重複性需求時仍保持穩定與溫和。</p>
-                  </div>
-                  <div class="support-box">
-                    <strong>有責任感</strong>
-                    <p>能確實完成照顧事項，也願意主動回報個案狀況與異常變化。</p>
-                  </div>
-                  <div class="support-box">
-                    <strong>願意學習</strong>
-                    <p>理解每位被照顧者情況不同，願意配合安排並持續調整照護方式。</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="section" aria-labelledby="why-join-title">
-        <div class="section-grid">
-          <div class="cell-left section-intro">
-            <span class="kicker">Why Join</span>
-            <h2 id="why-join-title">我們想找的，不只是人力，而是真正願意照顧人的夥伴。</h2>
-            <p>對很多家庭來說，看護不只是工作角色，更是每天最靠近生活的人。這也是我們招募時最重視的價值：同理、細心與穩定。</p>
-          </div>
-          <div class="cell-right section-body">
-            <div class="story-grid">
-              <article class="story-card">
-                <h3>把照顧做得有溫度</h3>
-                <p>從說話方式、陪伴節奏到生活觀察，我們希望每一次照顧都能讓長者感到安心與被尊重。</p>
-                <div class="story-meta"><span>尊重長者</span><span>日常陪伴</span></div>
-              </article>
-              <article class="story-card">
-                <h3>把工作內容說得清楚</h3>
-                <p>網站不走誇張包裝，而是讓應徵者知道真正要做的事情，降低到職後的落差感。</p>
-                <div class="story-meta"><span>內容透明</span><span>期待明確</span></div>
-              </article>
-              <article class="story-card">
-                <h3>把聯繫流程變簡單</h3>
-                <p>所有轉換都集中在 Line，想了解、想應徵、想先問問題，都能直接開始，不需要繞路。</p>
-                <div class="story-meta"><span>快速應徵</span><span>單一入口</span></div>
-              </article>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="section" aria-labelledby="flow-title">
-        <div class="section-grid">
-          <div class="cell-left section-intro">
-            <span class="kicker">Join Flow</span>
-            <h2 id="flow-title">應徵流程簡單，先從 Line 聊聊開始。</h2>
-            <p>讓有興趣加入的人可以快速進入聯繫，不用填太多複雜表單，先把重點問題談清楚，再安排後續流程。</p>
-          </div>
-          <div class="cell-right section-body">
-            <div class="timeline-grid">
-              <article class="timeline-card">
-                <h3>Step 1｜加入 Line</h3>
-                <p>先透過 Line 取得聯繫，告訴我們你是否有照護經驗、可配合時段，以及想了解的內容。</p>
-                <div class="timeline-meta"><span>快速接觸</span></div>
-              </article>
-              <article class="timeline-card">
-                <h3>Step 2｜了解職務內容</h3>
-                <p>我們會提供公司背景、工作說明與合作方式，讓你確認這份工作是否符合期待。</p>
-                <div class="timeline-meta"><span>資訊透明</span></div>
-              </article>
-              <article class="timeline-card">
-                <h3>Step 3｜安排後續應徵</h3>
-                <p>雙方確認方向後，再進一步安排應徵與媒合流程，讓加入更有效率。</p>
-                <div class="timeline-meta"><span>穩定媒合</span></div>
-              </article>
-            </div>
-            <div class="action-row">
-              <a class="cta-outline" href="https://line.me/ti/p/6y_7Lqfj2r" target="_blank" rel="noreferrer">現在就用 Line 聯繫</a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="section" aria-labelledby="faq-title">
-        <div class="section-grid">
-          <div class="cell-left section-intro">
-            <span class="kicker">FAQ</span>
-            <h2 id="faq-title">看護招募常見問題</h2>
-            <p>把求職者最常想問的重點先整理好，讓對工作有興趣的人能更快判斷是否適合自己。</p>
-          </div>
-          <div class="cell-right section-body">
-            <div class="faq-grid">
-              <article class="faq-item">
-                <h3>沒有長照經驗可以先詢問嗎？</h3>
-                <p>可以。若你對看護工作有興趣，仍可先透過 Line 聯繫，了解基本工作內容與需要具備的條件。</p>
-              </article>
-              <article class="faq-item">
-                <h3>工作內容會很模糊嗎？</h3>
-                <p>不會。我們會以台灣常見照護情境說明，包括起居協助、陪伴、清潔整理與回報溝通等內容。</p>
-              </article>
-              <article class="faq-item">
-                <h3>要怎麼投遞或應徵？</h3>
-                <p>網站所有按鈕都直接連到 Line，加入後即可開始詢問職缺、表達應徵意願，進一步安排後續流程。</p>
-              </article>
-              <article class="faq-item">
-                <h3>這個網站最主要的用途是什麼？</h3>
-                <p>主要用途是招募看護，讓有意加入長照工作的夥伴，能快速認識照護好時光並直接展開聯繫。</p>
-              </article>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="section" aria-labelledby="cta-title">
-        <div class="section-grid">
-          <div class="cell-full final-cta">
-            <span class="eyebrow">Care Starts Here</span>
-            <h2 id="cta-title">如果你願意照顧人，照護好時光正在等你加入。</h2>
-            <p>現在就透過 Line 聯繫我們，快速了解公司背景、看護工作內容與應徵方式，讓你的下一份照護工作從這裡開始。</p>
-            <div class="action-row" style="justify-content:center;">
-              <a class="cta-button" href="https://line.me/ti/p/6y_7Lqfj2r" target="_blank" rel="noreferrer">加入 Line 立即應徵</a>
-              <a class="cta-outline" href="https://line.me/ti/p/6y_7Lqfj2r" target="_blank" rel="noreferrer">先詢問再決定</a>
-            </div>
-          </div>
-        </div>
-      </section>
-    </main>
-
-    <footer>
-      <span>照護好時光｜長照中心看護招募、公司介紹、台灣看護工作內容、Line 應徵入口</span>
-    </footer>
   </div>
+</div>
+
+<!-- ===== HERO BANNER ===== -->
+<section id="home" class="hero-banner">
+  <div class="badge-tag">✦ 長照3.0 認證課程 ✦</div>
+  <h1>照顧有方法</h1>
+  <p>專業長照課程・輕鬆取得積分・守護您的照顧之路</p>
+  <div class="hero-btns">
+    <a href="#courses" class="btn-primary-hero"><i class="fa fa-book-open"></i> 瀏覽課程</a>
+    <a href="https://line.me/ti/p/Pf6y3gLqJz" target="_blank" class="btn-line-hero" style="position:relative;z-index:10;cursor:pointer;">
+      <i class="fa-brands fa-line"></i> LINE 立即諮詢
+    </a>
+  </div>
+</section>
+
+<!-- ===== STATS STRIP ===== -->
+<div class="stats-strip">
+  <div class="stats-inner">
+    <div class="stat-item"><div class="num">50+</div><div class="lbl">精選課程</div></div>
+    <div class="stat-item"><div class="num">3,000+</div><div class="lbl">學員人數</div></div>
+    <div class="stat-item"><div class="num">100%</div><div class="lbl">線上學習</div></div>
+    <div class="stat-item"><div class="num">24hr</div><div class="lbl">全天候服務</div></div>
+  </div>
+</div>
+
+<!-- ===== ANNOUNCEMENT TABS ===== -->
+<section id="news" class="section">
+  <div class="container">
+    <div class="section-title">最新消息</div>
+    <div class="tab-wrap">
+      <div class="tab-nav">
+        <button class="active" onclick="switchTab(this,'tab-activity')">
+          <i class="fa fa-bullhorn"></i> 活動訊息
+        </button>
+        <button onclick="switchTab(this,'tab-course')">
+          <i class="fa fa-book"></i> 開課消息
+        </button>
+        <button onclick="switchTab(this,'tab-system')">
+          <i class="fa fa-tasks"></i> 系統公告
+        </button>
+      </div>
+
+      <div id="tab-activity" class="tab-content active">
+        <ul class="news-list">
+          <li><span class="date">2026-05-20</span><span class="pin"><i class="fa fa-thumbtack"></i></span><a href="#" onclick="openModal('長照3.0課程積分更新說明','自115年7月1日起，申請長照人員認證L1須採認最新版課程，請學員注意換證相關權益，如有疑問請加入LINE詢問。')">【重要公告】長照3.0課程積分更新說明</a></li>
+          <li><span class="date">2026-05-13</span><span class="pin"><i class="fa fa-thumbtack"></i></span><a href="#" onclick="openModal('115年繼續教育積分課程開放','115年繼續教育積分課程已於115/1/16開啟，114年課程將於2月15日23:59關閉，請修課學員於時間內完成並通過測驗。')">115年繼續教育積分課程開放，114年課程即將關閉</a></li>
+          <li><span class="date">2026-04-14</span><span class="pin"><i class="fa fa-thumbtack"></i></span><a href="#" onclick="openModal('繼續教育積分分類更新','繼續教育積分（積分課程及屬性分類）自112年10月14日起適用最新分類標準，請學員留意。')">繼續教育積分（積分課程及屬性分類）分類更新</a></li>
+          <li><span class="date">2025-09-09</span><span class="pin"><i class="fa fa-thumbtack"></i></span><a href="#" onclick="openModal('防詐騙公告','請學員注意，本平台不會主動要求您提供個人帳號密碼或轉帳，如有疑問請透過LINE官方帳號查詢課程資訊。')">【防詐騙、查課程，保障長照人員權益】</a></li>
+        </ul>
+        <a href="#" class="btn-more" onclick="openModal('更多活動訊息','如需查看更多活動訊息，請加入我們的LINE官方帳號，第一時間掌握最新消息！')">查看更多</a>
+      </div>
+
+      <div id="tab-course" class="tab-content">
+        <ul class="news-list">
+          <li><span class="date">2026-03-01</span><span class="pin"><i class="fa fa-thumbtack"></i></span><a href="#courses">【新課上線】長照3.0照顧服務員資格訓練課程</a></li>
+          <li><span class="date">2026-02-11</span><span class="pin"><i class="fa fa-thumbtack"></i></span><a href="#courses">新增「長期照護機構因應COVID-19個人防護裝備穿脫訓練」課程</a></li>
+          <li><span class="date">2026-01-16</span><span class="pin"><i class="fa fa-thumbtack"></i></span><a href="#courses">115年繼續教育積分課程全面開放報名</a></li>
+          <li><span class="date">2025-11-12</span><a href="#courses">新感染管制課程及口腔照護工作教育訓練課程開放</a></li>
+        </ul>
+        <a href="#courses" class="btn-more">查看課程列表</a>
+      </div>
+
+      <div id="tab-system" class="tab-content">
+        <ul class="news-list">
+          <li><span class="date">2026-04-01</span><span class="pin"><i class="fa fa-thumbtack"></i></span><a href="#" onclick="openModal('系統維護公告','平台將於近期進行系統升級，以提升學習體驗與資安品質，請學員留意公告。')">平台系統升級公告</a></li>
+          <li><span class="date">2026-02-03</span><span class="pin"><i class="fa fa-thumbtack"></i></span><a href="#" onclick="openModal('伺服器升級','為提升平台資安品質，平台將進行伺服器升級作業，升級期間可能短暫無法登入，敬請見諒。')">伺服器升級作業通知</a></li>
+          <li><span class="date">2025-08-20</span><a href="#" onclick="openModal('新增忘記帳號功能','帳號服務優化，新增「忘記帳號」功能，方便學員找回帳號，如需協助請聯繫LINE客服。')">【系統更新】新增「忘記帳號」功能</a></li>
+        </ul>
+        <a href="https://line.me/ti/p/Pf6y3gLqJz" target="_blank" class="btn-more" style="background:#06C755;">
+          <i class="fa-brands fa-line"></i> LINE 聯繫客服
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== COURSE LIST ===== -->
+<section id="courses" class="section" style="background:#f0f4f8; padding-top:40px; padding-bottom:60px;">
+  <div class="container">
+    <div class="section-title">課程列表</div>
+
+    <!-- Category Bar -->
+    <div class="category-bar">
+      <button class="cat-btn active" onclick="filterCourse(this,'all')">全部課程</button>
+      <button class="cat-btn" onclick="filterCourse(this,'care')">照顧服務員資格訓練</button>
+      <button class="cat-btn" onclick="filterCourse(this,'ltc')">長照共同訓練課程(Level1)</button>
+      <button class="cat-btn" onclick="filterCourse(this,'edu')">長期照顧繼續教育</button>
+      <button class="cat-btn" onclick="filterCourse(this,'infection')">感染管制課程</button>
+      <button class="cat-btn" onclick="filterCourse(this,'rehab')">復能實務訓練</button>
+      <button class="cat-btn" onclick="filterCourse(this,'advance')">預立醫療決定</button>
+      <button class="cat-btn" onclick="filterCourse(this,'family')">家庭照顧者教育</button>
+    </div>
+
+    <!-- Course Grid -->
+    <div class="course-grid" id="courseGrid">
+
+      <div class="course-card" data-cat="care">
+        <div class="course-thumb" style="background:linear-gradient(135deg,#2a6baf,#1a9e6e);color:#fff;font-size:50px;display:flex;align-items:center;justify-content:center;">🤲</div>
+        <div class="course-body">
+          <div class="course-cat">照顧服務員資格訓練</div>
+          <div class="course-title">照顧服務員資格訓練核心課程</div>
+          <div class="course-meta">
+            <span><i class="fa fa-clock"></i> 90 分鐘</span>
+            <span><i class="fa fa-users"></i> 2,341 人</span>
+          </div>
+        </div>
+        <div class="course-footer">
+          <span class="badge-free">免費</span>
+          <a href="https://line.me/ti/p/Pf6y3gLqJz" target="_blank" class="btn-enroll">立即報名</a>
+        </div>
+      </div>
+
+      <div class="course-card" data-cat="ltc">
+        <div class="course-thumb" style="background:linear-gradient(135deg,#7b2fbe,#2a6baf);color:#fff;font-size:50px;display:flex;align-items:center;justify-content:center;">📋</div>
+        <div class="course-body">
+          <div class="course-cat">長照共同訓練課程(Level1)</div>
+          <div class="course-title">長照2.0至3.0政策與實務介紹</div>
+          <div class="course-meta">
+            <span><i class="fa fa-clock"></i> 120 分鐘</span>
+            <span><i class="fa fa-users"></i> 1,876 人</span>
+          </div>
+        </div>
+        <div class="course-footer">
+          <span class="badge-free">免費</span>
+          <a href="https://line.me/ti/p/Pf6y3gLqJz" target="_blank" class="btn-enroll">立即報名</a>
+        </div>
+      </div>
+
+      <div class="course-card" data-cat="edu">
+        <div class="course-thumb" style="background:linear-gradient(135deg,#e67e22,#f39c12);color:#fff;font-size:50px;display:flex;align-items:center;justify-content:center;">🎓</div>
+        <div class="course-body">
+          <div class="course-cat">長期照顧繼續教育</div>
+          <div class="course-title">長照繼續教育積分課程（115年版）</div>
+          <div class="course-meta">
+            <span><i class="fa fa-clock"></i> 60 分鐘</span>
+            <span><i class="fa fa-users"></i> 3,210 人</span>
+          </div>
+        </div>
+        <div class="course-footer">
+          <span class="badge-free">免費</span>
+          <a href="https://line.me/ti/p/Pf6y3gLqJz" target="_blank" class="btn-enroll">立即報名</a>
+        </div>
+      </div>
+
+      <div class="course-card" data-cat="infection">
+        <div class="course-thumb" style="background:linear-gradient(135deg,#27ae60,#2ecc71);color:#fff;font-size:50px;display:flex;align-items:center;justify-content:center;">🦠</div>
+        <div class="course-body">
+          <div class="course-cat">感染管制課程</div>
+          <div class="course-title">初階感染管制與防護措施訓練</div>
+          <div class="course-meta">
+            <span><i class="fa fa-clock"></i> 75 分鐘</span>
+            <span><i class="fa fa-users"></i> 1,540 人</span>
+          </div>
+        </div>
+        <div class="course-footer">
+          <span class="badge-free">免費</span>
+          <a href="https://line.me/ti/p/Pf6y3gLqJz" target="_blank" class="btn-enroll">立即報名</a>
+        </div>
+      </div>
+
+      <div class="course-card" data-cat="infection">
+        <div class="course-thumb" style="background:linear-gradient(135deg,#16a085,#1abc9c);color:#fff;font-size:50px;display:flex;align-items:center;justify-content:center;">🔬</div>
+        <div class="course-body">
+          <div class="course-cat">感染管制課程</div>
+          <div class="course-title">中階感染管制課程</div>
+          <div class="course-meta">
+            <span><i class="fa fa-clock"></i> 90 分鐘</span>
+            <span><i class="fa fa-users"></i> 980 人</span>
+          </div>
+        </div>
+        <div class="course-footer">
+          <span class="badge-free">免費</span>
+          <a href="https://line.me/ti/p/Pf6y3gLqJz" target="_blank" class="btn-enroll">立即報名</a>
+        </div>
+      </div>
+
+      <div class="course-card" data-cat="rehab">
+        <div class="course-thumb" style="background:linear-gradient(135deg,#8e44ad,#9b59b6);color:#fff;font-size:50px;display:flex;align-items:center;justify-content:center;">🏃</div>
+        <div class="course-body">
+          <div class="course-cat">復能實務訓練</div>
+          <div class="course-title">復能實務專業服務基礎訓練</div>
+          <div class="course-meta">
+            <span><i class="fa fa-clock"></i> 100 分鐘</span>
+            <span><i class="fa fa-users"></i> 756 人</span>
+          </div>
+        </div>
+        <div class="course-footer">
+          <span class="badge-free">免費</span>
+          <a href="https://line.me/ti/p/Pf6y3gLqJz" target="_blank" class="btn-enroll">立即報名</a>
+        </div>
+      </div>
+
+      <div class="course-card" data-cat="advance">
+        <div class="course-thumb" style="background:linear-gradient(135deg,#c0392b,#e74c3c);color:#fff;font-size:50px;display:flex;align-items:center;justify-content:center;">📜</div>
+        <div class="course-body">
+          <div class="course-cat">預立醫療決定</div>
+          <div class="course-title">預立醫療決定及病人自主法介紹</div>
+          <div class="course-meta">
+            <span><i class="fa fa-clock"></i> 50 分鐘</span>
+            <span><i class="fa fa-users"></i> 1,120 人</span>
+          </div>
+        </div>
+        <div class="course-footer">
+          <span class="badge-free">免費</span>
+          <a href="https://line.me/ti/p/Pf6y3gLqJz" target="_blank" class="btn-enroll">立即報名</a>
+        </div>
+      </div>
+
+      <div class="course-card" data-cat="family">
+        <div class="course-thumb" style="background:linear-gradient(135deg,#d35400,#e67e22);color:#fff;font-size:50px;display:flex;align-items:center;justify-content:center;">👨‍👩‍👧</div>
+        <div class="course-body">
+          <div class="course-cat">家庭照顧者教育</div>
+          <div class="course-title">高負荷家庭照顧者教育訓練課程</div>
+          <div class="course-meta">
+            <span><i class="fa fa-clock"></i> 80 分鐘</span>
+            <span><i class="fa fa-users"></i> 634 人</span>
+          </div>
+        </div>
+        <div class="course-footer">
+          <span class="badge-free">免費</span>
+          <a href="https://line.me/ti/p/Pf6y3gLqJz" target="_blank" class="btn-enroll">立即報名</a>
+        </div>
+      </div>
+
+    </div><!-- /course-grid -->
+
+    <div style="text-align:center;margin-top:32px;">
+      <a href="https://line.me/ti/p/Pf6y3gLqJz" target="_blank" class="btn-enroll" style="padding:13px 36px;border-radius:30px;font-size:15px;background:#2a6baf;color:#fff;display:inline-block;">
+        <i class="fa-brands fa-line"></i> &nbsp;更多課程請加LINE諮詢
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FEATURES ===== -->
+<section id="features" class="section">
+  <div class="container">
+    <div class="section-title">平台特色</div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fa fa-mobile-screen"></i></div>
+        <h4>隨時隨地學習</h4>
+        <p>手機、平板、電腦皆可使用，碎片時間也能完成課程。</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fa fa-certificate"></i></div>
+        <h4>官方認可積分</h4>
+        <p>課程積分符合衛福部長照3.0規定，完課即可累積繼續教育積分。</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fa fa-headset"></i></div>
+        <h4>LINE即時客服</h4>
+        <p>有任何問題，加入LINE官方帳號，專人即時為您解答。</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fa fa-graduation-cap"></i></div>
+        <h4>專業師資團隊</h4>
+        <p>由長照領域專家設計課程，內容深入淺出、易學易懂。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== LINE CTA ===== -->
+<a href="https://line.me/ti/p/Pf6y3gLqJz" target="_blank" style="display:block;text-decoration:none;">
+<div class="line-cta">
+  <h2><i class="fa-brands fa-line"></i> 立即加入LINE，掌握最新課程資訊</h2>
+  <p>加入「照顧有方法」LINE官方帳號，課程開放第一時間通知您！</p>
+  <span class="btn-line-big">
+    <i class="fa-brands fa-line"></i> 點此加入LINE
+  </span>
+</div>
+</a>
+
+<!-- ===== FAQ ===== -->
+<section id="faq" class="section">
+  <div class="container">
+    <div class="section-title">常見問題</div>
+    <div style="max-width:760px;margin:0 auto;">
+      <div class="faq-item" onclick="toggleFaq(this)" style="background:#fff;border-radius:10px;margin-bottom:12px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.07);cursor:pointer;">
+        <div style="padding:16px 20px;display:flex;align-items:center;justify-content:space-between;font-weight:600;color:#2a6baf;">
+          <span>長照3.0課程如何取得積分？</span>
+          <i class="fa fa-chevron-down" style="transition:transform .3s;"></i>
+        </div>
+        <div class="faq-body" style="display:none;padding:0 20px 16px;color:#555;font-size:14px;line-height:1.8;">
+          完成平台上的指定課程並通過測驗後，系統將自動記錄積分。學員可登入個人帳號查詢積分紀錄，如有疑問請加LINE詢問。
+        </div>
+      </div>
+      <div class="faq-item" onclick="toggleFaq(this)" style="background:#fff;border-radius:10px;margin-bottom:12px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.07);cursor:pointer;">
+        <div style="padding:16px 20px;display:flex;align-items:center;justify-content:space-between;font-weight:600;color:#2a6baf;">
+          <span>課程是否免費？</span>
+          <i class="fa fa-chevron-down" style="transition:transform .3s;"></i>
+        </div>
+        <div class="faq-body" style="display:none;padding:0 20px 16px;color:#555;font-size:14px;line-height:1.8;">
+          本平台提供多種免費課程，部分進階課程可能需要費用。詳細課程費用請加入LINE官方帳號查詢。
+        </div>
+      </div>
+      <div class="faq-item" onclick="toggleFaq(this)" style="background:#fff;border-radius:10px;margin-bottom:12px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.07);cursor:pointer;">
+        <div style="padding:16px 20px;display:flex;align-items:center;justify-content:space-between;font-weight:600;color:#2a6baf;">
+          <span>如何報名課程？</span>
+          <i class="fa fa-chevron-down" style="transition:transform .3s;"></i>
+        </div>
+        <div class="faq-body" style="display:none;padding:0 20px 16px;color:#555;font-size:14px;line-height:1.8;">
+          點擊課程卡片上的「立即報名」按鈕，即可跳轉至LINE官方帳號，由專人協助您完成報名流程。
+        </div>
+      </div>
+      <div class="faq-item" onclick="toggleFaq(this)" style="background:#fff;border-radius:10px;margin-bottom:12px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.07);cursor:pointer;">
+        <div style="padding:16px 20px;display:flex;align-items:center;justify-content:space-between;font-weight:600;color:#2a6baf;">
+          <span>課程完成後會有證書嗎？</span>
+          <i class="fa fa-chevron-down" style="transition:transform .3s;"></i>
+        </div>
+        <div class="faq-body" style="display:none;padding:0 20px 16px;color:#555;font-size:14px;line-height:1.8;">
+          完成課程並通過測驗後，可申請電子結業證書。如需紙本證書，請透過LINE聯繫客服辦理。
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer id="footer">
+  <div class="footer-inner">
+    <div class="footer-col">
+      <h4>照顧有方法</h4>
+      <p>專業長照3.0課程平台<br>讓照顧更有方法、更有溫度</p>
+      <div class="social-links">
+        <a href="https://line.me/ti/p/Pf6y3gLqJz" target="_blank" title="LINE"><i class="fa-brands fa-line"></i></a>
+        <a href="#" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>快速連結</h4>
+      <ul>
+        <li><a href="#home">🏠 首頁</a></li>
+        <li><a href="#news">📢 最新消息</a></li>
+        <li><a href="#courses">📚 課程列表</a></li>
+        <li><a href="#features">⭐ 平台特色</a></li>
+        <li><a href="#faq">❓ 常見問題</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>聯絡我們</h4>
+      <p>
+        粉專：照顧有方法<br>
+        客服時間：上班日 09:00~18:00<br><br>
+        <a href="https://line.me/ti/p/Pf6y3gLqJz" target="_blank" style="color:#06C755;font-weight:700;font-size:15px;">
+          <i class="fa-brands fa-line"></i> 點此加入LINE
+        </a>
+      </p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>Copyright © 2026 照顧有方法 版權所有</span>
+    <span>
+      <a href="#home" style="color:#888;">回到頂部 ↑</a>
+    </span>
+  </div>
+</footer>
+
+<!-- ===== MODAL ===== -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()">×</button>
+    <h3 id="modalTitle"></h3>
+    <p id="modalBody"></p>
+    <a href="https://line.me/ti/p/Pf6y3gLqJz" target="_blank" class="btn-line-modal">
+      <i class="fa-brands fa-line"></i> LINE 進一步詢問
+    </a>
+  </div>
+</div>
+
+<!-- ===== JAVASCRIPT ===== -->
+<script>
+  /* Tab switching */
+  function switchTab(btn, id) {
+    document.querySelectorAll('.tab-nav button').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(id).classList.add('active');
+  }
+
+  /* Course filter */
+  function filterCourse(btn, cat) {
+    document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.course-card').forEach(card => {
+      if (cat === 'all' || card.dataset.cat === cat) {
+        card.style.display = '';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  }
+
+  /* Search */
+  function doSearch() {
+    var kw = document.getElementById('searchInput').value.trim().toLowerCase();
+    if (!kw) return;
+    document.querySelectorAll('.course-card').forEach(card => {
+      var title = card.querySelector('.course-title').textContent.toLowerCase();
+      var cat   = card.querySelector('.course-cat').textContent.toLowerCase();
+      card.style.display = (title.includes(kw) || cat.includes(kw)) ? '' : 'none';
+    });
+    document.getElementById('courses').scrollIntoView({behavior:'smooth'});
+    // reset cat buttons
+    document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+  }
+  document.getElementById('searchInput').addEventListener('keydown', function(e){
+    if (e.key === 'Enter') doSearch();
+  });
+
+  /* Mobile nav */
+  function toggleMobileNav() {
+    document.getElementById('mobileNav').classList.toggle('open');
+  }
+
+  /* Modal */
+  function openModal(title, body) {
+    document.getElementById('modalTitle').textContent = title;
+    document.getElementById('modalBody').textContent = body;
+    document.getElementById('modalOverlay').classList.add('open');
+    return false;
+  }
+  function closeModal(e) {
+    if (!e || e.target === document.getElementById('modalOverlay') || !e.target) {
+      document.getElementById('modalOverlay').classList.remove('open');
+    }
+  }
+
+  /* FAQ accordion */
+  function toggleFaq(item) {
+    var body = item.querySelector('.faq-body');
+    var icon = item.querySelector('.fa-chevron-down');
+    var isOpen = body.style.display === 'block';
+    body.style.display = isOpen ? 'none' : 'block';
+    icon.style.transform = isOpen ? '' : 'rotate(180deg)';
+  }
+
+  /* Active nav highlight on scroll */
+  var sections = ['home','news','courses','features','faq'];
+  window.addEventListener('scroll', function(){
+    var scrollY = window.scrollY + 90;
+    sections.forEach(function(id){
+      var el = document.getElementById(id);
+      if (!el) return;
+      if (scrollY >= el.offsetTop && scrollY < el.offsetTop + el.offsetHeight) {
+        document.querySelectorAll('.desktop-nav a').forEach(a => a.classList.remove('active'));
+        var link = document.querySelector('.desktop-nav a[href="#'+id+'"]');
+        if (link) link.classList.add('active');
+      }
+    });
+  });
+</script>
 </body>
 </html>
